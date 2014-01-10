@@ -1,0 +1,56 @@
+.row
+  .col-sm-8
+    .panel.panel-default
+      .panel-body
+        %span.label.label-info * 为必填
+        %br
+        = simple_form_for @complain,:html => { :class => 'form' } do |f|
+          = f.input :contract_no, :label=>'经纪合同编号' 
+          = f.input :contract_type,  :label=>'合同类型',:collection=> ['委托租赁','委托买卖','居间租赁','居间买卖']
+          .row
+            .col-sm-5
+              = f.input :complain_by, :label=>'投诉人', class:'form-control' 
+            .col-sm-5
+              %br
+              = link_to '验证投诉有效性','#', :class=>'btn btn-default', :id=>'verify_btn'
+          %small#verify_status.text-danger
+          .form-group
+            = f.input :phone,  :label=>'联系电话', :as=>:tel, :hint=>'例:02712345678'
+          .form-group.string
+            %label.control-label.required(for:="complain_item")
+              %abbr(title="必须")
+              *投诉条款
+          #comp_items
+            .alert.alert-info
+              请重新选择合同类型
+          .row
+            .col-sm-7
+              = f.input :complain_to, :class=>'form-control', :label=>'投诉处理方', :as=>:select, :collection=>@district, :value_method=>:first, :label_method=>:last
+          .row
+            .col-sm-12
+              = f.input :content, :label=> '投诉内容', :as=>:text, :input_html=>{:class=>'form-control', :rows=>5}, :hint=>'输入内容必须在200字符以内'
+          %br
+          = f.submit '提交投诉', :class=>'btn btn-primary'
+          %br
+
+
+-content_for :footer do
+  :javascript
+    $(document).ready(function(){
+      $('#verify_btn').click(function(){
+        data = {
+          "contract_no"   : $('#complain_contract_no').val(),
+          "contract_type" : $('#complain_contract_type').val(),
+          "complain_by"   : $('#complain_complain_by').val()
+        };
+        $('#verify_status').load("#{verify_complains_path}", data);
+        return false;
+      });
+
+      $('#complain_contract_type').change(function(){
+        data = {
+          "contract_type": $('#complain_contract_type').val()
+        };
+        $('#comp_items').load("#{get_items_complains_path}", data);
+      });
+    });

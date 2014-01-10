@@ -1,0 +1,23 @@
+%nav.navbar.navbar-inverse
+  .container
+    .col-sm-2
+      .navbar-header
+        %a.navbar-brand{href: root_path}
+          =image_tag 'logo.png'
+    .col-sm-10
+      %br
+      %ul.nav.navbar-nav
+        = nav_link icon('user','中介机构'), agency_index_path
+        = nav_link icon('shopping-cart','存量房'), estate_index_path
+        = nav_link icon('envelope','投诉'), new_complain_path
+        = nav_link icon('book','法律法规'), laws_path
+        = nav_link icon('download-alt','下载'), '/home/downloads'
+
+        - if user_signed_in?
+          = link_to '退出', destroy_user_session_path, :method=> 'delete'
+
+      = form_tag '/agency/show_by_name', {:method=>'get',:class=> 'navbar-form navbar-left'} do
+        .form-group
+          = text_field_tag :name, @name, {:class=>'form-control', placeholder: '请输入经纪机构名称'} 
+        %button.btn.btn-default{:type=>:submit} 搜索
+        =link_to icon('map-marker','地图查询'), home_search_path, class:'btn btn-warning'

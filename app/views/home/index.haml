@@ -1,0 +1,59 @@
+%section  
+  %h1
+    %strong 房产经纪机构备案公示
+  %blockquote
+    %p{:style=>'text-indent:2em'}
+      %strong 备案系统网上公示有利于合法机构和从业人员的自我展示和社会监督，有利于消费者选择、甄别合法机构和从业人员，有利于畅通投诉渠道从而有效解决投诉、维护当事人合法权益。
+    %p.pull-right 
+      %small 
+        武汉市住房保障和房屋管理局
+    %br
+  .row
+    .col-sm-6
+      %h2.pull-right.text-primary
+        %strong= Agency.count
+        %small 备案经纪机构
+    .col-sm-6
+      %h2.text-primary
+        %strong= Broker.count
+        %small 备案经纪人
+        -2.times do 
+          ='&nbsp;'.html_safe
+        %small=link_to '详细', agency_index_path
+
+  
+  .panel.panel-default
+    .panel-body
+      #chart
+      #chart_pie
+  %script(src='https://www.google.com/jsapi')
+  = render_chart @chart, 'chart'
+  = render_chart @chart_pie, 'chart_pie'
+  %hr
+
+%seciton#describtion
+  %h1 
+    %strong 存量房交易
+  .col-sm-4
+    %h2 
+      %strong 准确
+
+    %h3
+      = icon 'lock'
+      交易信息准确
+    %p 所有交易信息都经过权属信息真实性的核实，拒绝任何欺诈交易。所有交易信息都和经纪机构进行绑定，自动发布和取消发布，避免信息的重复和无效。
+  .col-sm-4
+    %h2
+      %strong 透明
+    %h3
+      = icon 'eye-open'
+      交易过程全透明
+    %p  交易从委托到发布，从经纪服务到签署合同，甚至到最后的权属办理都是可追溯的。所有的信息对交易双方都是可见的。无须步步惊心，夜不能寐。
+  .col-sm-4
+    %h2 
+      %strong 规范
+    %h3
+      = icon 'road'
+      规范行业和市场行为
+    %p 通过全新的交易方式和全程的信用跟踪和投诉处理，逐步建立经纪机构和经纪人的信用体系，达到汰劣留良，净化行业风气，保障交易双方的权益。
+

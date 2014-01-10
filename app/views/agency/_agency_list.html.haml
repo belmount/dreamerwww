@@ -1,0 +1,5 @@
+.col-sm-6
+  .alert.alert-success
+    %h3=item[:award]
+  - item[:agencies].each do |agency|
+    %p=link_to "<i class='icon-thumbs-up'></i>#{agency.bname}".html_safe, agency_path(agency)

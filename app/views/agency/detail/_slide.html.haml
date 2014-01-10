@@ -1,0 +1,21 @@
+- @agency.images.each_with_index do |img,idx|
+  .col-sm-3
+    .thumbnail
+      %a{'data-target'=>"#imgModal", 'data-toggle'=>'modal', 'data-img-url'=> "#{Agency.orig_url(img)}"}
+        %img{:alt => "#{@agency.bname}#{img['image_name']}", height:'auto','max-height'=>'100px',:src => "#{Agency.thumb_url(img)}"}
+      .caption
+        %h4
+          %strong=img['image_name']
+
+.modal.fade#imgModal{tabindex: "-1",'aria-hidden'=>"true"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{type:"button", 'data-dismiss'=>"modal", 'aria-hidden'=>"true"}
+          &times;
+      .modal-body
+        %img{src: '#'}
+:javascript
+  $('.thumbnail a').click(function() {
+    $('#imgModal img').attr('src', $(this).attr('data-img-url')); 
+  });

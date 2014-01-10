@@ -1,0 +1,69 @@
+.row
+  .col-sm-4 
+    %form.well(id='search_form')
+      .form-group
+        = label_tag "小区名称："
+        = text_field_tag("villa", @villa,{:id=>'region',:class=> 'form-control'})
+      .form-group
+        = label_tag "所在区域："
+        = select_tag("region", options_for_select({ "江岸区" => "江岸区", "江汉区" => "江汉区" ,"硚口区"=>"硚口区","汉阳区"=>"汉阳区","武昌区"=>"武昌区","青山区"=>"青山区","洪山区"=>"洪山区","东西湖区"=>"东西湖区","汉南区"=>"汉南区","蔡甸区"=>"蔡甸区","江夏区"=>"江夏区","黄陂区"=>"黄陂区","新洲区"=>"新洲区","东湖新技术开发区"=>"东湖新技术开发区","武汉经济开发区"=>"武汉经济开发区","东湖风景区"=>"东湖风景区"}, @region), :class=> 'form-control')
+      .row
+        .col-sm-6
+          = label_tag "建筑面积："
+          = text_field_tag("areaa", @areaa,{:id=>'areaa',:class=>'form-control'})
+        .col-sm-6
+          = label_tag "至"
+          = text_field_tag("areab", @areab,{:id=>'areab',:class=>'form-control'})
+      .row
+        .col-sm-6
+          = label_tag "总价(万元) "
+          = text_field_tag("price1", @price1,{:id=>'price1',:class=>'form-control'})
+        .col-sm-6
+          = label_tag "至"
+          = text_field_tag("price2", @price2,{:id=>'price2',:class=>'form-control'})
+      %br
+      %button.btn.btn-primary{:type=>:submit} 搜索
+      =link_to icon('marker',"地图查询"), search_estate_index_path,:class=>"btn btn-default"
+
+      
+
+
+  .col-sm-8
+    - @estates.each do |e|
+      %section
+        %h3
+          %a{:href=> estate_path(e)}
+            = "#{e.totalprice}万元"
+            %small= e.address
+        %hr
+        .row
+          .col-sm-4
+            .thumbnail
+              %a{:href=> estate_path(e)}
+                =image_tag(estate_idx_img(e.images))
+                %span.label.label-default= e.images.size
+          .col-sm-8
+            -# 应为发布时间
+            %dl.dl-horizontal
+              %dt 发布时间：
+              %dd= date_str_format e.pub_at 
+              %dt 发布截止时间：
+              %dd= date_str_format e.end_at 
+              %dt 小区名称：
+              %dd= e.villa
+              %dt 建筑结构：
+              %dd= e.structue
+              %dt 建筑面积：
+              %dd= e.area
+              %dt 建成年份：
+              %dd= e.built_year
+              %dt 所在区域：
+              %dd= e.region
+              %dt 发布机构：
+              %dd= link_to  e.agency.bname, e.agency
+              %dt  机构电话：
+              %dd= e.agency.tel
+              %dt 验证类型：
+              %dd= e.image_3
+    
+    = paginate @estates

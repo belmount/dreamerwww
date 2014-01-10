@@ -1,0 +1,20 @@
+// Brand colors
+// -------------------------
+$my-nav-color: #2c4762;
+$my-link-color: #3cadd0;
+
+
+$body-bg:               #F7F7F7;
+
+// nav-bar
+$navbar-inverse-color:                      #fff;
+$navbar-inverse-bg:                         $my-nav-color;
+$navbar-inverse-border:                     $navbar-inverse-bg;
+$navbar-inverse-link-color:                 lighten($navbar-inverse-bg, 50%);
+
+.label a,a:hover{
+  color: #fff;
+}
+
+
+@import "bootstrap";

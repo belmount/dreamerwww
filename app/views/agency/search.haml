@@ -1,0 +1,103 @@
+=render '/shared/gmap'
+.row
+  .col-sm-8
+    %h1 
+      %strong 中介机构位置查询
+      =icon('map-marker')
+      %small 武汉市备案
+  
+.row#guide
+  %h4 
+    %span.label.label-default 操作指南
+  %p
+    %span.badge 1 
+    拖动地图上的标签至您所在位置
+    %span.badge 2 
+    选取搜索机构数量
+    %span.badge 3 
+    点击搜索，找寻附近的经纪机构
+  %br
+.row
+  %form(id='search_form')
+    .col-sm-4
+      .col-sm-4
+        = hidden_field_tag(:from_lat, @wuhan[:lat], {:id=>'from_lat'})
+        = hidden_field_tag(:from_lng, @wuhan[:lng], {:id=>'from_lng'})
+        %label 最近(家)  
+      .col-sm-8
+        = select_tag(:limit, options_for_select(1..15, @limit), class: 'form-control')
+    .col-sm-2
+      .col-sm-2
+        =check_box_tag(:intermediate, value = "居间", checked = @inter_check )
+      %label.control-label.col-sm-6  居间
+    .col-sm-2
+      .col-sm-2
+        =check_box_tag(:proxy, value = "代理", checked = @proxy_check) 
+      %label.control-label.col-sm-6 代理  
+    .col-sm-4
+      %button.btn.btn-primary{:type=>:submit} 搜索
+      = link_to icon('refresh','重新搜索'), home_search_path, {:class=>'btn btn-default'} 
+  
+- if @agencies and @agencies.empty? then
+  .alert.alert-info 搜索没有结果。请重新搜索
+%hr
+.row
+  .col-sm-3
+    %h4
+      %strong 查询结果
+    %ul.nav.nav-stacked#markers_list
+  .col-sm-8 
+    #map{style:'height: 400px;'}
+
+-content_for :footer do
+  :javascript
+    $(document).ready(function(){
+      var raw_markers    = #{raw @hash.to_json};
+      var gmaps_markers;
+
+      function createSidebarLi(agency_json) {
+        return ("<li><a>" + agency_json.marker_title + "<\/a></li>");
+      };
+
+      function bindLiToMarker($li, marker){
+        $li.click(function(){
+          marker.panTo(); //to pan to the marker
+          google.maps.event.trigger(marker.getServiceObject(), "click"); // to open infowindow
+        });
+      };
+
+      function createSidebar(){
+        for (var i=0;i<raw_markers.length;i++){
+          var $li = $( createSidebarLi(raw_markers[i]) );
+          $li.appendTo($('#markers_list'));
+          bindLiToMarker($li, gmaps_markers[i]);
+        }
+      };
+
+      function enableDrag() {
+        if (#{not params[:from_lat].present?}) {
+          pos_marker = gmaps_markers[0].serviceObject;
+          google.maps.event.addListener(pos_marker, 'dragend', function() {
+            $('#from_lat').val(pos_marker.position.lat());
+            $('#from_lng').val(pos_marker.position.lng());
+          });
+        }
+      }
+
+      handler = Gmaps.build('Google');
+      handler.buildMap({ 
+          provider: {zoom: 12}, 
+          internal: {id: 'map'}}, 
+          function(){
+            if (#{params[:from_lat].present?}) {
+              gmaps_markers = handler.addMarkers(raw_markers);
+            } else {
+              gmaps_markers = handler.addMarkers(raw_markers, {draggable: true});
+            }
+          handler.bounds.extendWith(gmaps_markers);
+          gmaps_markers[0].panTo();
+          createSidebar();
+          enableDrag();
+      });
+    });
+      

@@ -1,0 +1,29 @@
+= form_for @law do |f|
+  -if @law.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@law.errors.count, "error")} prohibited this law from being saved:"
+      %ul
+        - @law.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label '标题'
+    = f.text_field :title
+  .field
+    = f.label '内容'
+    = f.text_field :content, {:class=>'wymeditor'}
+  .field
+    = f.label '标签'
+    = f.text_field :tags
+  .field
+    = f.label '新闻？'
+    = f.check_box :is_news
+  .field
+    = f.label '发布时间'
+    = f.datepicker :publish_at
+  .actions
+    = f.submit '保存', {:class=>'wymupdate'}
+
+- content_for :footer do
+  %script{:src => "/javascripts/wymeditor/wymeditor/jquery.wymeditor.min.js", :type => "text/javascript"}
+  %script{:src => "/javascripts/wymrails.js", :type => "text/javascript"}

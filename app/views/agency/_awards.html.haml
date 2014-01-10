@@ -1,0 +1,6 @@
+-if @agency.awards_array.count > 0 then
+  #awards
+    %h4.text-success
+      = icon 'thumbs-up'
+      -@agency.awards_array.each do |award|
+        %strong= award

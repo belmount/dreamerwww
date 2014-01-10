@@ -1,0 +1,6 @@
+.selected img {
+  opacity:0.5;
+}
+.item img {
+    width:100%;
+}

@@ -1,0 +1,30 @@
+%h1 
+  %strong 二手房查询
+%hr
+.row
+  .col-sm-8
+    %h4 
+      %span.label.label-default 操作指南
+    %p
+      %span.badge 1 
+      拖动地图上的标签至您所在位置
+    %p
+      %span.badge 2
+      点击搜索，找寻附近的挂牌存量房
+  .col-sm-4.well
+    %form.form-search(id='search_form')
+      = hidden_field_tag(:from_lat, @wuhan[:lat], {:id=>'from_lat'})
+      = hidden_field_tag(:from_lng, @wuhan[:lng], {:id=>'from_lng'})
+
+
+      %button.btn.btn-primary{:type=>:submit} 搜索
+      = link_to icon('refresh','重新搜索'), search_estate_index_path, {:class=>'btn btn-default'}
+
+    - if @estates and @estates.empty? then
+      .alert.alert-info 搜索没有结果。请重新搜索
+  %hr
+
+=render 'agency/map', title: '搜索结果'
+    
+-content_for :footer do
+  =render 'agency/comm_map_js', :need_drag => true    

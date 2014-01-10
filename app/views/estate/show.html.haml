@@ -1,0 +1,41 @@
+%section
+  .row
+    .col-sm-8
+      %h3
+        %strong= @estate.address
+      %p
+        %small 发布于
+        %strong=date_str_format @estate.pub_at 
+        %strong= date_str_format @estate.end_at
+        %small 前有效  
+    .col-sm-4
+      %br
+      %p.text-info
+        %strong=  "#{@estate.totalprice}万元"
+      %p 
+        %span.label.label-success 出售中
+
+  .row.panel.panel-default
+    %br
+    .col-sm-10.col-sm-offset-1
+      =render 'images', :image => @estate.images
+
+  .row
+    %h4 
+      %strong 详细信息
+    %p 
+      ="建于#{@estate.built_year}的#{@estate.rooms}#{@estate.structue}#{@estate.type}, 建筑面积#{@estate.area}平米"
+    %p
+      由
+      =link_to @estate.agency.bname, @estate.agency 
+      发布， 联系电话
+      %strong= @estate.agency.tel
+      ,联系人
+      =@estate.broker_name
+      ,该房屋产权已经由
+      %strong.text-success=@estate.image_3
+    %hr
+
+=render 'map'
+
+ 

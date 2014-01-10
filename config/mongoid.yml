@@ -1,0 +1,35 @@
+common: &common
+  hosts:
+   - localhost:27017
+  allow_dynamic_fields: true
+
+
+development:
+  sessions:
+    default:
+      <<: *common
+      database: estatee
+
+test:
+  sessions:
+    default:
+      <<: *common
+      database: estatee_test
+
+# set these environment variables on your prod server
+production:
+  sessions:
+    default:
+      <<: *common
+      database: estatee
+  # host: <%= ENV['MONGOID_HOST'] %>
+  # port: <%= ENV['MONGOID_PORT'] %>
+  # username: <%= ENV['MONGOID_USERNAME'] %>
+  # password: <%= ENV['MONGOID_PASSWORD'] %>
+  # database: <%= ENV['MONGOID_DATABASE'] %>
+  # slaves:
+  #   - host: slave1.local
+  #     port: 27018
+  #   - host: slave2.local
+  #     port: 27019
+  # 4f90b4cee138230ed2000096

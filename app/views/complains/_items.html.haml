@@ -1,0 +1,4 @@
+- @col.each do |item|
+  %label.checkbox-inline
+    %input{:type=>"checkbox", :value=>item, :name=>"complain[complain_item][]",:id =>"complain_complain_item_#{item}"}
+    =item

@@ -1,0 +1,8 @@
+.row
+  .col-sm-5
+    %h4 
+      =title
+    %ul.nav.nav-stacked#markers_list
+  .col-sm-7 
+    #map{style:'height: 400px;'}
+=render '/shared/gmap'

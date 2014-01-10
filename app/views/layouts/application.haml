@@ -1,0 +1,23 @@
+!!!
+%html
+  %head
+    %title
+      兴房网 武汉备案房地产中介
+    = stylesheet_link_tag "application"
+    = csrf_meta_tags
+    = javascript_include_tag "application"
+    = yield :head if defined? :head
+  %body
+    = render '/layouts/navbar'
+    .container#main
+      .col-sm-10
+        = yield
+      .col-sm-2
+        = render '/shared/news'
+      
+    %hr
+    %footer.footer
+      =render '/layouts/footer'
+      = render '/layouts/google_analytics'
+      = yield :footer if defined? :footer
+

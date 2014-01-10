@@ -1,0 +1,52 @@
+=render '/shared/gmap'
+%h2
+  %strong.text-danger=@area
+
+.row
+  .col-sm-10= paginate @agencies
+.row
+  .col-sm-4
+    %h4 
+      ="共#{@agencies.count}家"
+    %ul.nav.nav-stacked#markers_list
+  .col-sm-8 
+    #map{style:'height: 400px;'}
+
+-content_for :footer do
+  :javascript
+    $(document).ready(function(){
+      var raw_markers    = #{raw @json.to_json};
+      var gmaps_markers;
+
+      function createSidebarLi(agency_json) {
+        return ("<li><a>" + agency_json.marker_title + "<\/a></li>");
+      };
+
+      function bindLiToMarker($li, marker){
+        $li.click(function(){
+          marker.panTo(); //to pan to the marker
+          google.maps.event.trigger(marker.getServiceObject(), "click"); // to open infowindow
+        });
+      };
+
+      function createSidebar(){
+        for (var i=0;i<raw_markers.length;i++){
+          var $li = $( createSidebarLi(raw_markers[i]) );
+          $li.appendTo($('#markers_list'));
+          bindLiToMarker($li, gmaps_markers[i]);
+        }
+      };
+
+      handler = Gmaps.build('Google');
+      handler.buildMap({ 
+          provider: {zoom: 3}, 
+          internal: {id: 'map'}}, 
+          function(){
+          gmaps_markers = handler.addMarkers(raw_markers);
+          handler.bounds.extendWith(gmaps_markers);
+          handler.fitMapToBounds();
+          createSidebar();
+      });
+
+      
+    });

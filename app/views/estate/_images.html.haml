@@ -1,0 +1,45 @@
+-if image.blank?
+  .thumbnail=image_tag('/images/notfound.jpg')
+-elsif image.is_a? Array
+  .row 
+    #carousel-imgs.carousel.slide{'data-ride'=>"carousel", 'data-interval'=>'false'} 
+      %ol.carousel-indicators
+        - (0..image.size).each do |i|
+          %li{'data-target'=>'#carousel-imgs','data-slide-to'=>"#{i}", class:"#{'active' if i == 0}"}
+      .carousel-inner
+        -image.each_with_index do |img, idx|
+          .item{class: "#{'active' if idx == 0}", 'data-slide-number'=>idx}
+            %img{src: img}
+      %a.left.carousel-control{href: "#carousel-imgs", 'data-slide'=>"prev"}
+        %span.glyphicon.glyphicon-chevron-left
+      %a.right.carousel-control{href: "#carousel-imgs", 'data-slide'=>"next"}
+        %span.glyphicon.glyphicon-chevron-right
+  .row
+    %br
+    #slider-thumbs.hidden-sm.hidden-xs
+      %ul.list-inline
+        - image.each_with_index do |img, idx|
+          %li
+            %a{id: "carousel-selector-#{idx}", class:"#{'selected' if idx ==0 }"}
+              %img.img-responsive{src: "#{estate_img_thumb(img)}"}
+-else
+  =image_tag(image)
+
+:javascript
+  // handles the carousel thumbnails
+  $('[id^=carousel-selector-]').click( function(){
+    var id_selector = $(this).attr("id");
+    var id = id_selector.substr(id_selector.length -1);
+    id = parseInt(id);
+    $('#carousel-imgs').carousel(id);
+    $('[id^=carousel-selector-]').removeClass('selected');
+    $(this).addClass('selected');
+  });
+
+  // when the carousel slides, auto update
+  $('#carousel-imgs').on('click', function (e) {
+    var id = $('.item.active').data('slide-number');
+    id = parseInt(id);
+    $('[id^=carousel-selector-]').removeClass('selected');
+    $('[id^=carousel-selector-'+id+']').addClass('selected');
+  });

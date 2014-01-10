@@ -1,0 +1,19 @@
+%h2
+  %strong 城区备案详细
+%hr
+.row
+  .col-sm-4
+    %ul.nav.nav-pills.nav-stacked
+      -statics.each_with_index do |area, i|
+        - if i % 3 == 1 
+          %li=link_to "#{area['_id']}<span class='badge'>#{area['value']['count'].to_i}</span>".html_safe, by_area_agency_index_path(:area=>area['_id'])
+  .col-sm-4
+    %ul.nav.nav-pills.nav-stacked
+      -statics.each_with_index do |area, i|
+        - if i % 3 == 2 
+          %li=link_to "#{area['_id']}<span class='badge'>#{area['value']['count'].to_i}</span>".html_safe, by_area_agency_index_path(:area=>area['_id'])
+  .col-sm-4
+    %ul.nav.nav-pills.nav-stacked
+      -statics.each_with_index do |area, i|
+        - if i % 3 == 0 
+          %li=link_to "#{area['_id']}<span class='badge'>#{area['value']['count'].to_i}</span>".html_safe, by_area_agency_index_path(:area=>area['_id'])

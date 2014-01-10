@@ -1,0 +1,35 @@
+%hr
+%dl.dl-horizontal
+  %dt 法人代表：
+  %dd= @agency.legal_person
+  %dt 资质证号：
+  %dd= @agency.recordnum.nil? ? '--':@agency.recordnum
+  %dt 资质等级：
+  %dd= @agency.level
+  %dt 注册资本：
+  %dd= @agency.capital.to_s + "万元"
+  %dt 备案经营范围：
+  %dd= @agency.business_scope
+%hr  
+%p
+  %strong=icon 'user'
+  %small 办公电话：
+  %strong=@agency.tel 
+  %small 投诉电话：
+  %strong=@agency.comphonea
+  %small 区局投诉电话：
+  %strong=@agency.comphoneb
+  -if @join_to.present?
+    %small 总部投诉电话：
+    %strong=@join_to.comphonea
+
+
+-if @join_to.present? then 
+  %small 加盟于：
+  %strong= link_to @join_to.bname, agency_path(@join_to), {'class'=>'label label-info'}
+
+- if @joins_cnt.present? and @joins_cnt >0 then 
+  %span
+    =link_to "<strong>已备案加盟经纪机构(#{@joins_cnt})家</strong>".html_safe, {:action => "show_joins", :id => @agency}
+
+    

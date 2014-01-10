@@ -1,0 +1,38 @@
+# SQLite version 3.x
+#   gem 'activerecord-jdbcsqlite3-adapter'
+#
+# Configure Using Gemfile
+# gem 'activerecord-jdbcsqlite3-adapter'
+#
+# development:
+#   adapter: sqlserver
+#   mode: dblib
+#   host: 119.97.201.21
+#   port: 14332
+#   database: test
+#   user: sa
+#   password: '5955'
+development:
+  adapter: postgresql
+  database: estatee_test
+  host: 127.0.0.1
+  user: root
+  password: jojo4u
+
+
+
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+
+production:
+  adapter: postgresql
+  database: estatee
+  host: 127.0.0.1
+  user: root
+  password: jojo4u
+

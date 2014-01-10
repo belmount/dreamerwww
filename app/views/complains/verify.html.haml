@@ -1,0 +1,9 @@
+%br
+-if @result.nil? then
+  .alert.alert-error 请输入合同编号和投诉人姓名
+-elsif @result!="0" then
+  .alert.alert-success
+    =icon 'ok'
+-else
+  .alert.alert-danger
+    =icon 'remove'

@@ -1,0 +1,8 @@
+- @names.each_with_index do |doc, i|
+  .row
+    .col-sm-1
+      %h4
+        %span.badge= i+1
+    .col-sm-11
+      %h4
+        = link_to icon('download', doc), "/downloads/form/f#{i+1}.doc"

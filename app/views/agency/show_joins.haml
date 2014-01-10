@@ -1,0 +1,8 @@
+%h1= link_to @agency.bname, agency_path(@agency)
+%br
+= paginate @agencies
+
+= render 'map', title: "已备案加盟经纪机构(#{@agencies.count})"
+
+-content_for :footer do
+  =render 'comm_map_js'

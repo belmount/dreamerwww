@@ -1,0 +1,17 @@
+zh-CN:
+  views:
+    pagination:
+      first: "第一页"
+      last: "最后页"
+      previous: "上一页"
+      next: "下一页"
+      truncate: "..."
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "未发现记录"
+          one: "记录 <b>1</b> "
+          other: "记录 <b>全部 %{count}条</b>"
+      more_pages:
+        display_entries: "显示全部<b>%{total}</b>条中<b>%{first}&nbsp;-&nbsp;%{last}</b> 条记录"

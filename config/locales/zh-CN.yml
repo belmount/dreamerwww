@@ -1,0 +1,14 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+zh-CN:
+  hello: "hello test"
+  mongoid:
+    errors:
+      messages:
+        blank: "不能为空"
+        too_short: "输入内容长度未达到最低要求"
+        invalid: "格式错误"
+      models:
+        complain:
+          atrributes:
+            contract_no: '经纪合同编号' 

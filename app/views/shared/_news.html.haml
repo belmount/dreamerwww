@@ -1,0 +1,11 @@
+.panel.panel-primary
+  .panel-heading
+    =icon('bullhorn')
+    %strong 最新通告
+  .panel-body
+    -@news.each do |n|
+      %h6
+        =link_to n.title, n
+    %p
+      %span.pull-right=link_to icon('list',"  更多.."), news_path(:n=>1)
+
