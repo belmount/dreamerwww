@@ -1,12 +1,8 @@
-%nav.navbar.navbar-inverse
+%nav.navbar.navbar-inverse.navbar-fixed-top
   .container
-    .col-sm-2
-      .navbar-header
-        %a.navbar-brand{href: root_path}
-          =image_tag 'logo.png'
-    .col-sm-10
-      %br
+    .col-sm-12
       %ul.nav.navbar-nav
+        = nav_link icon('home','首页'), root_path
         = nav_link icon('user','中介机构'), agency_index_path
         = nav_link icon('shopping-cart','存量房'), estate_index_path
         = nav_link icon('envelope','投诉'), new_complain_path

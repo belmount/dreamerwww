@@ -1,23 +1,24 @@
-#static_pane
-	=render 'statics', :statics=> @statics
-	%hr
-#honor_pane
-	%h2 
-		%strong 获奖备案经纪机构
-	.row
-		.col-sm-5
-			%ul.nav.nav-tabs.nav-stacked.nav-pills
-				- @awards_list.each_with_index do |item, idx|
-					%li{class: "#{'active' if idx==0}"}
-						%a{href: "\#award#{idx}", 'data-toggle' => 'tab'}=icon('chevron-right', item[:award],true)
-		.col-sm-5
-			.tab-content
-				- @awards_list.each_with_index do |item, idx|
-					.tab-pane{id: "award#{idx}", class: "#{'active' if idx==0}"}
-						.panel.panel-primary
-							.panel-heading
-								%h5=item[:award]
-							.panel-body
-								- item[:agencies].each do |agency|
-									%p=link_to agency.bname,  agency
+.panel.panel-default
+	.panel-body
+		=render 'statics', :statics=> @statics
+.panel.panel-default
+	.panel-body
+		%h2 
+			%strong 获奖备案经纪机构
+		.row
+			.col-sm-5
+				%ul.nav.nav-tabs.nav-stacked.nav-pills
+					- @awards_list.each_with_index do |item, idx|
+						%li{class: "#{'active' if idx==0}"}
+							%a{href: "\#award#{idx}", 'data-toggle' => 'tab'}= item[:award]
+			.col-sm-5
+				.tab-content
+					- @awards_list.each_with_index do |item, idx|
+						.tab-pane{id: "award#{idx}", class: "#{'active' if idx==0}"}
+							.panel.panel-primary
+								.panel-heading
+									%h5=item[:award]
+								.panel-body
+									- item[:agencies].each do |agency|
+										%p=link_to agency.bname,  agency
 

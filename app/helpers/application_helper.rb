@@ -59,14 +59,14 @@ module ApplicationHelper
   end
 
   def add_star(broker)
-    "<i class='icon-star'/>" if broker[:rank]
+    "<span class='glyphicon glyphicon-star text-danger'></span>" if broker[:rank]
   end
 
   def icon(name, title='', right=false)
     if right then
-      "#{title}<span class='glyphicon glyphicon-#{name}'><span>".html_safe
+      "#{title}<span class='glyphicon glyphicon-#{name}'></span>".html_safe
     else 
-      "<span class='glyphicon glyphicon-#{name}'><span>#{title}".html_safe
+      "<span class='glyphicon glyphicon-#{name}'></span>#{title}".html_safe
     end
   end 
 end

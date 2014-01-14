@@ -1,8 +1,10 @@
-%h1= link_to @agency.bname, agency_path(@agency)
-%br
-= paginate @agencies
+.panel.panel-default
+  .panel-heading
+    %h1= link_to @agency.bname, agency_path(@agency)
+  .panel-body
+    = paginate @agencies
 
-= render 'map', title: "已备案加盟经纪机构(#{@agencies.count})"
+    = render 'map', title: "已备案加盟经纪机构(#{@agencies.count})"
 
--content_for :footer do
-  =render 'comm_map_js'
+    -content_for :footer do
+      =render 'comm_map_js'

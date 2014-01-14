@@ -22,34 +22,17 @@ class HomeController < ApplicationController
     statics_temp = Agency#.where(:location.ne =>[])
       .where(:area.ne => nil).map_reduce(map, reduce).out(inline: 1)
     @statics = statics_temp.to_a.sort_by{|r| -r["value"]["count"]}
+    varr = []
+    tarr = [] 
 
-
-    data_table = GoogleVisualr::DataTable.new
-    data_table.new_column('string', '城区')
-    data_table.new_column('number', '备案数量')
-    downtown_count = Agency.downtown.count 
-    data_table.add_rows(@statics.count)
     @statics.each_with_index do |area, idx|
-      logger.info(area.inspect)
-      data_table.set_cell(idx, 0, area['_id'])
-      data_table.set_cell(idx, 1, area['value']['count'])
+      varr << area['value']['count']
+      tarr << "'#{area['_id']}'"
     end
+    @statics_varr = varr * ','
+    @statics_tarr = tarr * ','
     
-    opts   = { :width => 800, :height => 500, :title => '城区备案数量统计',}
-    @chart = GoogleVisualr::Interactive::ColumnChart.new(data_table, opts)
-
-    data_table = GoogleVisualr::DataTable.new
-    data_table.new_column('string', '区域')
-    data_table.new_column('number', 'Hours per Day')
-    data_table.add_rows(2)
-    data_table.set_cell(0, 0, '中心城区'   )
-    data_table.set_cell(0, 1, Agency.downtown.count )
-    data_table.set_cell(1, 0, '新城区'    )
-    data_table.set_cell(1, 1, Agency.suburbs.count  )
-
-
-    opts = { :width => 800, :height => 400, :title => '区域备案占比', :is3D => true }
-    @chart_pie = GoogleVisualr::Interactive::PieChart.new(data_table, opts)
+    @chart ="#{Agency.downtown.count}, #{Agency.suburbs.count }"
   end
 
   def downloads

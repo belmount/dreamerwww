@@ -33,12 +33,16 @@ class AgencyController < ApplicationController
 
   def show_by_name
     @name = params[:name].strip
-    @agencies = Agency.where(:bname => /#{@name}/).to_a
-    @json = to_markers @agencies
-    
-    respond_to do |format|
-      format.html { render "search_list" }
-      format.json { render json: @agencies }
+    if @name.empty? then 
+      redirect_to root_path
+    else 
+      @agencies = Agency.where(:bname => /#{@name}/).to_a
+      @json = to_markers @agencies
+      
+      respond_to do |format|
+        format.html { render "search_list" }
+        format.json { render json: @agencies }
+      end
     end
   end
 

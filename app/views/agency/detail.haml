@@ -1,59 +1,58 @@
 %link(rel="stylesheet" type="text/css" href="/scripts/amazon/amazon_style/css/amazon_scroller.css")
+.panel.panel-default
+  .panel-body
+    %h1{class: "#{'text-danger' if @agency.in_complain?}"}
+      %strong= @agency.bname
+      %sub 
+        备案信息
+    %p
+      %small=@agency.address
+    -if @agency.in_complain? then
+      %h4.text-danger.text-left
+        %strong=icon 'exclamation-sign', "存在重大投诉#{@agency['complain_cnt']}笔未处理"
+    %hr
+    = render 'awards'
+        
+    .row
+      = render 'agency/detail/slide'
+    #reginfo
+      = render 'agency/detail/reginfo'
 
-%h1{class: "#{'text-danger' if @agency.in_complain?}"}
-  %strong= @agency.bname
-  %sub 
-    备案信息
-%p
-  %small=@agency.address
--if @agency.in_complain? then
-  %h4.text-danger.text-left
-    %strong=icon 'exclamation-sign', "存在重大投诉#{@agency['complain_cnt']}笔未处理"
-%hr
-= render 'awards'
-    
-.row
-  = render 'agency/detail/slide'
-.row
-  =render 'agency/detail/reginfo'
+    -if @award_brokers.count > 0 then  
+      %section#award_brokers
+        .page-header 获奖经纪人
+        - @award_brokers.each do |b|
+          %p
+            %strong=b.name
+            %span.label.label-success=b.awards
 
--if @award_brokers.count > 0 then  
-  %section#award_brokers
-    .page-header 获奖经纪人
-    - @award_brokers.each do |b|
-      %p
-        %strong=b.name
-        %span.label.label-success=b.awards
+    %hr
+    =render 'map', title: '附近已备案经纪机构'
+          
 
-%hr
-=render 'map', title: '附近已备案经纪机构'
-      
+    #brokers.row
+    .page-header
+      %h2= "备案经纪人信息(共#{@agency.brokers.count}人)"
 
-#brokers.row
-.page-header
-  %h2= "备案经纪人信息(共#{@agency.brokers.count}人)"
-
-%table.table.table-striped.table-bordered
-  %thead
-    %tr
-      %th #
-      %th 姓名
-      %th 类型
-      %th 资格证书号码
-      %th 
-  %tbody
-  -  @agency.brokers.asc('type').each_with_index do |broker, i|
-    %tr
-      %td= i+1
-      %td= "#{broker.name}#{ add_star(broker)}".html_safe
-      %td= broker.type
-      %td= broker.cert_num
-      %td
-        %strong.view_img{"data-html" => "true","data-content"=>"<img src=\"#{Broker.img_url(broker.guid)}\">".html_safe} 
-          查看照片
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th #
+          %th 姓名
+          %th 类型
+          %th 资格证书号码
+          %th 
+      %tbody
+      -  @agency.brokers.asc('type').each_with_index do |broker, i|
+        %tr
+          %td= i+1
+          %td= "#{ add_star(broker)}#{broker.name}".html_safe
+          %td= broker.type
+          %td= broker.cert_num
+          %td
+            %strong.view_img{"data-html" => "true",'data-trigger'=> 'hover', "data-content"=>"<img src=\"#{Broker.img_url(broker.guid)}\">".html_safe} 
+              查看照片
 - content_for :footer do
-  %script{:src => "/scripts/amazon/amazon_style/js/amazon_scroller.js", :type => "text/javascript"}
-  -#%script{:src => "/scripts/fancybox/fancybox/jquery.fancybox-1.3.4.pack.js", :type => "text/javascript"}
   :javascript
     $(document).ready(function(){
       $('.view_img').popover();

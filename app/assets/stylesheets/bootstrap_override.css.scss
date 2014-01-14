@@ -1,10 +1,13 @@
 // Brand colors
 // -------------------------
-$my-nav-color: #2c4762;
-$my-link-color: #3cadd0;
+$my-nav-color: #445016;
+$my-link-color: #89a02c;
 
 
-$body-bg:               #F7F7F7;
+//$body-bg:               #F7F7F7;
+$body-bg:               #88aa00;
+
+$bg-img: image-url('bg.png');
 
 // nav-bar
 $navbar-inverse-color:                      #fff;
@@ -15,6 +18,21 @@ $navbar-inverse-link-color:                 lighten($navbar-inverse-bg, 50%);
 .label a,a:hover{
   color: #fff;
 }
+.wrapper {
+  background: image-url('wash-white-30.png');
+}
+body {
+  background-image: $bg-img;
+  background-position: left 40px;
+  background-attachment: fixed;
+  background-repeat: repeat-x;
+  padding-top: 70px;
+}
+.navbar#slogon {
+  padding-top: 70px;
+}
 
-
+.thumbnail{
+  background-color: #fff;
+}
 @import "bootstrap";

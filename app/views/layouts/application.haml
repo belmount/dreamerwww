@@ -9,15 +9,12 @@
     = yield :head if defined? :head
   %body
     = render '/layouts/navbar'
-    .container#main
-      .col-sm-10
+    .container.wrapper
+      .col-sm-9
         = yield
-      .col-sm-2
+      .col-sm-3
         = render '/shared/news'
-      
-    %hr
-    %footer.footer
-      =render '/layouts/footer'
-      = render '/layouts/google_analytics'
-      = yield :footer if defined? :footer
+        = render '/layouts/footer'
+        = render '/layouts/google_analytics'
+        = yield :footer if defined? :footer
 

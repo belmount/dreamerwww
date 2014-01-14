@@ -1,16 +1,17 @@
 =render '/shared/gmap'
-%h2
-  %strong.text-danger=@area
-
-.row
-  .col-sm-10= paginate @agencies
-.row
-  .col-sm-4
-    %h4 
-      ="共#{@agencies.count}家"
-    %ul.nav.nav-stacked#markers_list
-  .col-sm-8 
-    #map{style:'height: 400px;'}
+.panel.panel-default
+  .panel-heading
+    %h2
+      %strong.text-danger=@area
+  .panel-body
+    = paginate @agencies
+    .row
+      .col-sm-4
+        %h4 
+          ="共#{@agencies.count}家"
+        %ul.nav.nav-stacked#markers_list
+      .col-sm-8 
+        #map{style:'height: 400px;'}
 
 -content_for :footer do
   :javascript

@@ -1,4 +1,4 @@
--if @agency.awards_array.count > 0 then
+-if @agency[:awards_array] and @agency.awards_array.count > 0 then
   #awards
     %h4.text-success
       = icon 'thumbs-up'

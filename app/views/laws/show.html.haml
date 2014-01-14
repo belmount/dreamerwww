@@ -1,23 +1,24 @@
-%p#notice= notice
+.panel.panel-default
+  .panel-body
+    %p#notice= notice
+    %h1
+      %strong= @law.title
+    .row
+      .col-sm-3
+        %p
+          %strong 颁布日期:
+          = date_str(@law.publish_at)
+      .col-sm-8
+        %p.pull-right
+          =icon ('tag')
+          - @law.tags_array.each do |tag|
+            %span.label.label-default= link_to tag, laws_path(:n=> 1, :tag=>tag)
+    .well
+      = raw @law.content
 
-%p
-  %h1= @law.title
-.row
-  .span3
-    %p
-      %b 颁布日期:
-      = date_str(@law.publish_at)
-  .span5.offset3
-    %p
-      .btn-group
-        - @law.tags_array.each do |tag|
-          = link_to tag, laws_path(:n=> 1, :tag=>tag), {:class=>'btn btn-info'}
-.well
-  = raw @law.content
 
+    - if user_signed_in? then 
+      = link_to '编辑', edit_law_path(@law), {:class => 'btn btn-large btn-primary'}
+      = link_to '删除', law_path(@law), {:method=>:delete,:class => 'btn btn-large'}
 
-- if user_signed_in? then 
-  = link_to '编辑', edit_law_path(@law), {:class => 'btn btn-large btn-primary'}
-  = link_to '删除', law_path(@law), {:method=>:delete,:class => 'btn btn-large'}
-
-= link_to '返回', laws_path, {:class => 'btn btn-large btn-primary'}
+    = link_to '返回', laws_path, {:class => 'btn btn-large btn-primary'}

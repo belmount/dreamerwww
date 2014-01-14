@@ -1,25 +1,27 @@
-%h1
-  %strong= @n ? '通告' : '法律法规' 
+.panel.panel-default
+  .panel-body
+    %h1
+      %strong= @n ? '通告' : '法律法规' 
 
-- if user_signed_in? then 
-  = link_to '新增', new_law_path, {:class => 'btn btn-large btn-primary'}
+    - if user_signed_in? then 
+      = link_to '新增', new_law_path, {:class => 'btn btn-large btn-primary'}
 
-- @laws.each do |law|
-  .row
-    %h4
-      %strong= link_to law.title, law
-      %small.pull-right.text-success
-        发布于
-        = date_str(law.publish_at)
-    %p
-      =strip_tags(law.content[0..200]).html_safe
-      ="..."
-    %p
-      =icon 'tag'
-      - law.tags_array.each do |tag|
-        - if params[:n] then
-          %span.label.label-default= link_to tag, laws_path(:n=> params[:n], :tag=>tag)
-        -else
-          %span.label.label-default= link_to tag, laws_path(:tag=>tag)
-.row
-  = paginate @laws
+    - @laws.each do |law|
+      .row.panel-body
+        %h4
+          %strong= link_to law.title, law
+          %small.pull-right.text-success
+            发布于
+            = date_str(law.publish_at)
+        %p
+          =strip_tags(law.content[0..200]).html_safe
+          ="..."
+        %p
+          =icon 'tag'
+          - law.tags_array.each do |tag|
+            - if params[:n] then
+              %span.label.label-default= link_to tag, laws_path(:n=> params[:n], :tag=>tag)
+            -else
+              %span.label.label-default= link_to tag, laws_path(:tag=>tag)
+    .row.panel-body
+      = paginate @laws

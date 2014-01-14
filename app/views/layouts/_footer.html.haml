@@ -1,21 +1,20 @@
-.container
-  .row
-    .col-sm-3
-      %h6 
-        %strong= link_to '关于', '#'
-      %p 
-        武汉市房地产中介协会主办
-      %p 
-        武汉市速房网络科技有限公司协办 
-    .col-sm-2
-      %h6 软件
-      %p
-        = link_to 'Android客户端下载', '/downloads/anjie.apk'
-      %p
-        = link_to '资质管理系统', 'http://119.97.201.21/zj' 
-    .col-sm-7
-      %p.pull-right
-        &copy; 2014 梦想家
+.panel.panel-default
+  .panel-body
+    %p 
+      %strong 主办
+      %small 武汉市房地产中介协会
+    %p 
+      %strong 协办
+      %small 武汉市速房网络科技有限公司
+    %p= link_to '关于', '#'
+    %p
+      = link_to 'Android客户端下载', '/downloads/anjie.apk'
+    %p
+      = link_to '资质管理系统', 'http://119.97.201.21/zj' 
+    %p
+      = link_to '兴房网', 'http://027xf.com'
+    %p
+      &copy; 2014 梦想家
         
 
   

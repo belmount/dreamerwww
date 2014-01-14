@@ -44,15 +44,11 @@ gem "mongoid", "~> 3.0.0"
 
 gem 'jquery-rails'
 gem 'stringex'
-
-# for google chart
-gem "google_visualr", ">= 2.1"
-
 gem 'simple_form'
 
 # To use soap web service 
 gem 'savon'
-gem 'thin'
+#gem 'thin'
 #gem 'sprockets', '~> 2.9.0' # for asset compile
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

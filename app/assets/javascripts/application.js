@@ -15,3 +15,4 @@
 //= require bootstrap
 //= require underscore
 //= require gmaps/google
+//= require rapheal
