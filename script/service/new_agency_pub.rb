@@ -26,24 +26,21 @@ namespace '/api' do
 	post '/new_agency_pub' do 
 		jdata = request.body.read
 		data = JSON.parse(jdata)
-		target = Agency.where(bname: data["bname"]).first
-		awards_array = target.nil? ? nil : target['awards_array']
-		agency.remove({"bname" => data["bname"]})
-	#经纪人（整合同步接口）
+
 		data2=data["brokers"].dup
 		data.delete "brokers"
-		puts data.inspect
-		id = agency.insert(data, :safe => true)
-		if not awards_array.nil? then 
-			agency.update({'_id'=>id}, {'$set'=>{'awards_array'=>awards_array}})
-	  end
-		aa=db['broker']
-	 	aa.remove("belong_to" => data["guid"])
-		data2.each{|n|
-			n[:agency_id]=id
-			id2=aa.insert(n)
-			puts n
+
+		target = Agency.where(bname: data["bname"]).first
+
+		if target.nil? then 
+			target= Agency.create(data)
+		else
+			
+		target.brokers.remove
+		data2.each{|broker|
+			target.brokers.add(broker)
 		}
+	
 	#经纪人
 		#md5=Digest::MD5.hexdigest("#{data[:name]}#{data[]}www.superidea.com.cn")
 		#md5=Digest::MD5.hexdigest("#{formal_data}www.superidea.com.cn")

@@ -16,7 +16,7 @@ class AgencyController < ApplicationController
     @award_brokers = @agency.brokers.where(:awards_array.in => awards)
 
     @near_bys = Agency.excludes(_id: @agency._id)
-              .near(location: [@agency.latitude, @agency.longitude])
+              .near(location: [@agency.latitude, @agency.longitude]).locable
               .limit(5)
               .to_a
               #.sort_by!{|r| r.geo[:distance]}
@@ -55,7 +55,7 @@ class AgencyController < ApplicationController
 
   def by_area
     @area = params[:area]
-    @agencies = Agency.where("area"=> @area).page params[:page]
+    @agencies = Agency.where("area"=> @area).locable.page params[:page]
       #.where(:location.exists =>true )
       
     @json = to_markers @agencies
@@ -100,15 +100,15 @@ class AgencyController < ApplicationController
       @wuhan = {:lat =>params[:from_lat], :lng=> params[:from_lng], :draggable=>true}
       @limit = params[:limit].to_i
       if @inter_check and @proxy_check then 
-      @agencies = Agency.near(location: [@wuhan[:lat].to_f, @wuhan[:lng].to_f])
+      @agencies = Agency.near(location: [@wuhan[:lat].to_f, @wuhan[:lng].to_f]).locable
                 .limit(@limit )
                 .to_a
       elsif @inter_check then 
-        @agencies = Agency.inter.near(location:[@wuhan[:lat].to_f, @wuhan[:lng].to_f])
+        @agencies = Agency.inter.near(location:[@wuhan[:lat].to_f, @wuhan[:lng].to_f]).locable
                 .limit(@limit )
                 .to_a
       else
-        @agencies = Agency.proxy.near(location:[@wuhan[:lat].to_f, @wuhan[:lng].to_f])
+        @agencies = Agency.proxy.near(location:[@wuhan[:lat].to_f, @wuhan[:lng].to_f]).locable
                 .limit(@limit )
                 .to_a
       end

@@ -79,5 +79,5 @@ class Agency
   scope :suburbs, where(:area.in=> SUBURBS)
 
   # to remove companies without location to result
-  #default_scope where(:location.ne => nil)
+  scope :locable, where(:location.ne => nil)
 end
