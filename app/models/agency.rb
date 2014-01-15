@@ -2,7 +2,7 @@
 class Agency 
   include Mongoid::Document
   store_in collection: "agency"
-	include Rails.application.routes.url_helpers
+  
   include Mongoid::Spacial::Document
   include Mongoid::TaggableWithContext
 
@@ -44,18 +44,10 @@ class Agency
     self.location["longitude"]
   end
 
-	def gmaps4rails_infowindow
-			link = "<a href=\"#{agency_path(self)}\">#{self.bname}</a>"
-      "#{link}<br>#{self.tel}"
-  end
 
   def gmaps4rails_title
        "#{self.bname}"
   end
-
- #  def gmaps4rails_sidebar
-  
-	# end
 
 
   def self.thumb_url img

@@ -1,7 +1,6 @@
 class Estate 
   include Mongoid::Document
   include Mongoid::Spacial::Document
-  include Rails.application.routes.url_helpers
   
   store_in collection: "gpinfos"
   belongs_to :broker
@@ -57,20 +56,6 @@ class Estate
 
   def agency
     Agency.where('guid'=>/#{self.intermediary}/i).first
-  end
-
-  def gmaps4rails_title
-       "#{self.address}"
-  end
-
-  def gmaps4rails_infowindow
-      link = "<a href=\"#{estate_path(self)}\">#{self.address}</a>"
-      #{}"#{link}<br>#{self.tel}"
-  end
-
-  def gmaps4rails_sidebar
-    "<span>#{self.address}</span>
-    " 
   end
 
   def published_by_agency
