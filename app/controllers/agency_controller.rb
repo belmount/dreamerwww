@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class AgencyController < ApplicationController
   def show
     if params[:id].present? then
@@ -16,11 +15,10 @@ class AgencyController < ApplicationController
     @award_brokers = @agency.brokers.where(:awards_array.in => awards)
 
     @near_bys = Agency.excludes(_id: @agency._id)
-              .near(location: [@agency.latitude, @agency.longitude]).locable
+              .near(location: [@agency.latitude, @agency.longitude])
+              .locable
               .limit(5)
               .to_a
-              #.sort_by!{|r| r.geo[:distance]}
-              #.to_a
 
     @all = @near_bys.dup <<  @agency
     @json =  to_markers @all, @agency
@@ -132,7 +130,7 @@ class AgencyController < ApplicationController
         marker.lat agency.latitude
         marker.lng agency.longitude
         marker.title agency.bname
-        marker.infowindow "#{agency.gmaps4rails_infowindow}"
+        marker.infowindow "#{view_context.link_to  agency.bname, agency_path(agency) }"
         if current and current === agency then
            marker.picture({
             :url => "http://maps.gstatic.cn/intl/zh-CN_cn/mapfiles/arrow.png",

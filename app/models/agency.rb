@@ -3,12 +3,10 @@ class Agency
   include Mongoid::Document
   store_in collection: "agency"
   
-  include Mongoid::Spacial::Document
   include Mongoid::TaggableWithContext
-
   include Mongoid::TaggableWithContext::AggregationStrategy::RealTime
 
-  field :location, :type => Array, spacial: {lat: :latitude, lng: :longitude, return_array: true }
+  field :location, :type => Hash
   index({ location: "2d" })
 
   field :area, :type=> String

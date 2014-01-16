@@ -90,13 +90,15 @@ namespace '/api' do
 			address:  		data["fwzl"]
 		}
 
-		logger.info datas.inspect
+		logger.info datas[:location]
 		estate = Estate.where( pubid: datas[:pubid]).first
 		if !estate then 
 			estate = Estate.create(datas)
 			logger.info 'estate new'
 		else
 			estate.update_attributes(datas)
+			estate.location = datas[:location]
+			logger.info estate.location
 			logger.info 'estate updated'
 		end 
 

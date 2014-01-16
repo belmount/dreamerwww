@@ -1,11 +1,10 @@
 class Estate 
   include Mongoid::Document
-  include Mongoid::Spacial::Document
   
   store_in collection: "gpinfos"
   belongs_to :broker
 
-  field :location, :type => Array, spacial: {lat: :latitude, lng: :longitude, return_array: true } 
+  field :location, :type=> Hash
   index({location: '2d'})
 
   field :totalprice, :type=> Float
@@ -30,9 +29,14 @@ class Estate
   scope :by_region, ->(var) { where( region: /#{var}/) }
   scope :by_area, ->(var1, var2) { between( area:  Range.new(var1, var2)) }
   scope :by_price, ->(var1, var2) { between( price:  Range.new(var1, var2)) }
-  scope :in_publish, ->(until_date) {where(:end_at.lte => until_date)}
+  scope :in_publish, ->(until_date) {where(:end_at.gte => until_date)}
 
   #default_scope where(:end_at.gte=> Date.new(2012, 11,23))
+
+
+  def broker_name
+    self[:broker]
+  end
 
   def latitude
     self.location["latitude"]
@@ -40,10 +44,6 @@ class Estate
 
   def longitude
     self.location["longitude"]
-  end
-
-  def broker_name
-    self[:broker]
   end
 
   def self.find pubid

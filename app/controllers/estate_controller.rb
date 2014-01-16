@@ -15,7 +15,7 @@ class EstateController < ApplicationController
       @price2 = 10000
     end
 
-    @estates = Estate.in_publish(Date.new)
+    @estates = Estate.in_publish(Date.today)
                      .by_villa(@villa)
                      .by_region(@region)
                      .by_area(@areaa, @areab)
@@ -49,8 +49,9 @@ class EstateController < ApplicationController
       @wuhan = {:lat =>params[:from_lat], :lng=> params[:from_lng], :marker_title=> "您所在位置" }
       @limit = 5
       
-      @estates =Estate.near(location:[@wuhan[:lat].to_f, @wuhan[:lng].to_f])
-                      .limit(@limit )
+      @estates =Estate.near(location: [@wuhan[:lat].to_f, @wuhan[:lng].to_f])
+                      .max_distance(location: 50)
+                      .limit(@limit)
                       .to_a
       @json = to_markers @estates
     else
@@ -68,7 +69,7 @@ class EstateController < ApplicationController
       marker.lat estate.latitude
       marker.lng estate.longitude
       marker.title estate.address
-      marker.infowindow "#{estate.gmaps4rails_infowindow}"
+      marker.infowindow "#{estate.address}"
       if current and current === estate then
          marker.picture({
           :url => "http://maps.gstatic.cn/intl/zh-CN_cn/mapfiles/arrow.png",
