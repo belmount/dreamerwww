@@ -5,7 +5,6 @@
 
 require 'rubygems'
 require 'sinatra'
-require 'mongoid_spacial'
 require 'mongoid_taggable_with_context'
 require 'digest/md5'
 require 'json'
