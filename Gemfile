@@ -17,6 +17,7 @@ gem 'jquery_datepicker'
 
 gem 'devise'
 gem 'kaminari'
+gem "mongoid", ">=3.0.0"
 gem 'mongoid_taggable_with_context'
 gem 'yui-compressor'
 
@@ -36,9 +37,6 @@ gem 'therubyrhino'
 gem 'uglifier', '>= 1.0.3'
 
 gem 'bootstrap-sass', '~>3.0.3.0'
-
-gem "mongoid", ">=3.0.0"
-
 
 gem 'jquery-rails'
 gem 'stringex'
