@@ -1,6 +1,7 @@
 class Law
   include Mongoid::Document
   store_in collection: "law", session: "default"
+
   include Mongoid::TaggableWithContext
   include Mongoid::TaggableWithContext::AggregationStrategy::RealTime
 
@@ -17,9 +18,28 @@ class Law
   scope :type, lambda{|n| where(:is_news => n)}
   scope :laws, type(false)
   scope :news, type(true)
+
+  default_scope desc(:publish_at)
   
   def self.session
     Mongoid.default_session
+  end
+
+  def tags_array 
+    self[:tags_array] ||= self[:tags]
+  end
+
+  def tags=(tags)
+    tags.gsub('，', ',')
+    self[:tags_array] = tags.split ',' 
+  end
+
+  def tags 
+    tags_array * ','
+  end
+
+  def publish_at
+    self[:publish_at].strftime("%Y-%m-%d")
   end
 
   def to_param

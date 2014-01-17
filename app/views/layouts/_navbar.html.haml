@@ -8,10 +8,10 @@
         = nav_link icon('envelope','投诉'), new_complain_path
         = nav_link icon('book','法律法规'), laws_path
         = nav_link icon('download-alt','下载'), '/home/downloads'
-
-        - if user_signed_in?
-          = link_to '退出', destroy_user_session_path, :method=> 'delete'
-
+        -if user_signed_in?
+          %li= link_to '退出', destroy_user_session_path, :method=> 'delete' 
+        -elsif request.remote_ip =~ /^[192.168|127.0.0.1]/
+          %li= link_to '登录', new_user_session_path
       = form_tag '/agency/show_by_name', {:method=>'get',:class=> 'navbar-form navbar-left'} do
         .form-group
           = text_field_tag :name, @name, {:class=>'form-control', placeholder: '请输入经纪机构名称'} 

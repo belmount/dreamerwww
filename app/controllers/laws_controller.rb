@@ -3,6 +3,7 @@ class LawsController < ApplicationController
   # GET /laws.json
 
   before_filter :authenticate_user!, :except =>[:index, :show]
+  
   def index
     @n = params[:n].present? ? true:false
     if params[:tag].present? then

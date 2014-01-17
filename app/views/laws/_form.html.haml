@@ -1,29 +1,35 @@
-= form_for @law do |f|
-  -if @law.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@law.errors.count, "error")} prohibited this law from being saved:"
-      %ul
-        - @law.errors.full_messages.each do |msg|
-          %li= msg
+.panel.panel-default
+  .panel-body
+    = simple_form_for @law, :html => { :class => 'form' } do |f|
+      -if @law.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@law.errors.count, "error")} prohibited this law from being saved:"
+          %ul
+            - @law.errors.full_messages.each do |msg|
+              %li= msg
 
-  .field
-    = f.label '标题'
-    = f.text_field :title
-  .field
-    = f.label '内容'
-    = f.text_field :content, {:class=>'wymeditor'}
-  .field
-    = f.label '标签'
-    = f.text_field :tags
-  .field
-    = f.label '新闻？'
-    = f.check_box :is_news
-  .field
-    = f.label '发布时间'
-    = f.datepicker :publish_at
-  .actions
-    = f.submit '保存', {:class=>'wymupdate'}
+      .form-group
+        = f.input :title, label: '标题',  required: true
+      .form-group
+        = f.input :content, label: '内容' , :as=> :text, required: true, input_html: {class: 'editable'}
+      .form-group
+        = f.input :tags, label: '标签', hint: ',分隔', required: true
+      .form-group
+        = f.input :is_news, label: '新闻？', as: :boolean, checked_value: true, unchecked_value: false, required: true
+      .form-group
+        = f.input :publish_at, label: '发布时间', required: true
+      = f.button  :submit, value:'保存', class: 'btn btn-warning wymupdate'
 
 - content_for :footer do
-  %script{:src => "/javascripts/wymeditor/wymeditor/jquery.wymeditor.min.js", :type => "text/javascript"}
-  %script{:src => "/javascripts/wymrails.js", :type => "text/javascript"}
+  %script{type: "text/javascript", src: "http://cdn.aloha-editor.org/latest/lib/require.js"}
+  %script{:src=>"http://cdn.aloha-editor.org/latest/lib/aloha.js",
+    'data-aloha-plugins'=>"common/ui, common/format, common/table, common/list, common/link, common/highlighteditables, common/block, common/undo, common/image, common/contenthandler, common/paste, common/characterpicker, common/commands, extra/flag-icons, common/abbr"} 
+  %link{:href=>"http://cdn.aloha-editor.org/latest/css/aloha.css" ,:rel=>"stylesheet" ,:type=>"text/css"}
+  :javascript
+    $(document).ready(function(){
+      $('#law_publish_at').datepicker();
+     Aloha.ready( function() {
+      var $ = Aloha.jQuery;
+      $('.editable').aloha();
+    });
+    });

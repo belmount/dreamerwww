@@ -1,27 +1,29 @@
 .panel.panel-default
   .panel-body
-    %h1
+    %h1.text-center
       %strong= @n ? '通告' : '法律法规' 
 
-    - if user_signed_in? then 
-      = link_to '新增', new_law_path, {:class => 'btn btn-large btn-primary'}
-
+      - if user_signed_in? then 
+        = link_to '新增', new_law_path, {:class => 'btn btn-large btn-primary'}
+    %hr
     - @laws.each do |law|
       .row.panel-body
         %h4
           %strong= link_to law.title, law
           %small.pull-right.text-success
             发布于
-            = date_str(law.publish_at)
+            = law.publish_at
         %p
-          =strip_tags(law.content[0..200]).html_safe
+          =content_preview law.content
           ="..."
-        %p
-          =icon 'tag'
-          - law.tags_array.each do |tag|
-            - if params[:n] then
-              %span.label.label-default= link_to tag, laws_path(:n=> params[:n], :tag=>tag)
-            -else
-              %span.label.label-default= link_to tag, laws_path(:tag=>tag)
+        #tags
+          %p.pull-right
+            =icon 'tag'
+            - law.tags_array.each do |tag|
+              - if params[:n] then
+                %span.label.label-default= link_to tag, laws_path(:n=> params[:n], :tag=>tag)
+              -else
+                %span.label.label-default= link_to tag, laws_path(:tag=>tag)
+        %br
     .row.panel-body
       = paginate @laws

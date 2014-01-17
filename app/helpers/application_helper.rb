@@ -69,4 +69,8 @@ module ApplicationHelper
       "<span class='glyphicon glyphicon-#{name}'></span>#{title}".html_safe
     end
   end 
+
+  def content_preview( content)
+    strip_tags(sanitize(content, tags: %w(!), attributes: %w(id class style)))[0..200].html_safe
+  end
 end
