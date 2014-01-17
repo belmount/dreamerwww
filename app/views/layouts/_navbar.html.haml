@@ -10,7 +10,7 @@
         = nav_link icon('download-alt','下载'), '/home/downloads'
         -if user_signed_in?
           %li= link_to '退出', destroy_user_session_path, :method=> 'delete' 
-        -elsif request.remote_ip =~ /^[192.168|127.0.0.1]/
+        -elsif request.remote_ip =~ /^(192|127)\.(168|0)/
           %li= link_to '登录', new_user_session_path
       = form_tag '/agency/show_by_name', {:method=>'get',:class=> 'navbar-form navbar-left'} do
         .form-group
