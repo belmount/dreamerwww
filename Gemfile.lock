@@ -92,7 +92,6 @@ GEM
       moped (~> 1.2)
       origin (~> 1.0)
       tzinfo (~> 0.3.29)
-
     mongoid_taggable_with_context (1.1.4)
       mongoid (>= 3.0.0)
     moped (1.5.1)

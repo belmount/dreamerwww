@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Law
   include Mongoid::Document
   store_in collection: "law", session: "default"
@@ -35,11 +36,11 @@ class Law
   end
 
   def tags 
-    tags_array * ','
+    tags_array * ',' if tags_array
   end
 
   def publish_at
-    self[:publish_at].strftime("%Y-%m-%d")
+    self[:publish_at].strftime("%Y-%m-%d") if self[:publish_at]
   end
 
   def to_param
