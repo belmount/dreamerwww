@@ -12,8 +12,8 @@ gem 'haml-rails'
 gem 'gmaps4rails'
 gem 'execjs'
 #gem 'therubyracer'
-gem 'jquery-ui-rails'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'jquery_datepicker'
 
 gem 'devise'
@@ -38,6 +38,7 @@ gem 'therubyrhino'
 gem 'uglifier', '>= 1.0.3'
 
 gem 'bootstrap-sass', '~>3.0.3.0'
+
 gem 'stringex'
 gem 'simple_form'
 

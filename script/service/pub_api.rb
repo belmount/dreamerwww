@@ -5,10 +5,10 @@
 
 require 'rubygems'
 require 'sinatra'
+require 'mongoid'
 require 'mongoid_taggable_with_context'
 require 'digest/md5'
 require 'json'
-require 'mongoid'
 require 'sinatra/contrib'
 
 Mongoid.load!(File.expand_path('../../../config/mongoid.yml/', __FILE__))

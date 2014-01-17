@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AgencyController < ApplicationController
   def show
     if params[:id].present? then
