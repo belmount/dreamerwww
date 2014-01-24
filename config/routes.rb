@@ -9,9 +9,11 @@ Estatee::Application.routes.draw do
   root :to=>'home#index'
   match 'home/search', :controller => 'agency', :action=>'search'
   match 'home/downloads', :controller=>'home', :action=>'downloads'
+  match 'home/upload', :controller=>'home', :action=>'upload'
   match 'news',  :controller=>'laws', :action=>'index'
   match 'agency/list/name/:name', :controller => 'agency', :action=>'show_by_name'
   match 'agency/show_joins/:id', :controller=>'agency', :action=>'show_joins'
+  match 'home/startup', to: 'home#startup', via: [:post]
 
   resources :agency do 
     collection do 
@@ -34,5 +36,7 @@ Estatee::Application.routes.draw do
       get 'search'
     end
   end
+
+  resources :assets
 
 end

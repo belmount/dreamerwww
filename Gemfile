@@ -22,6 +22,9 @@ gem "mongoid", ">=3.0.0"
 gem 'mongoid_taggable_with_context'
 gem 'yui-compressor'
 
+# for file upload
+gem "mongoid-paperclip", :require => "mongoid_paperclip"
+
 # generate sitemap
 gem 'sitemap_generator'
 # rake sitemap:refresh
@@ -44,7 +47,7 @@ gem 'simple_form'
 
 # To use soap web service 
 gem 'savon'
-#gem 'thin'
+gem 'thin'
 #gem 'sprockets', '~> 2.9.0' # for asset compile
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

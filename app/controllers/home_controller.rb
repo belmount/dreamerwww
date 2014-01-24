@@ -42,4 +42,14 @@ class HomeController < ApplicationController
      《武汉房地产中介协会专职秘书长应聘报名表》 《二手房买卖业务流程》 《房地产经纪机构及人员变更表格》 《经纪人公示》 《武汉经纪人培训报名表》 《武汉市诚信房地产经纪机构申报表》 《武汉市房地产经纪机构资格备案申报表》 《新设房地产经纪机构备案实地核查表》]
     render 'downloads'
   end
+
+  def upload
+    render 
+  end
+
+  # post 
+  # do uploading
+  def startup
+    render text: params.inspect
+  end
 end

@@ -15,6 +15,5 @@
 //= require jquery.ui.all
 //= require jquery.ui.datepicker-zh-CN
 //= require bootstrap
-//= require underscore
 //= require gmaps/google
 //= require rapheal

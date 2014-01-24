@@ -1,0 +1,15 @@
+=javascript_include_tag '/javascripts/holder'
+.panel.panel-default
+  .panel-body
+    %p=link_to '新建上传', new_asset_path, :class=> 'btn btn-primary'
+    %hr
+    .row
+      -@assets.each do |asset|
+        .col-xs-6.col-md-3
+          %a.thumbnail{href: "#{asset.attachment.url}"}
+            -if asset.images? 
+              =image_tag asset.attachment.url(:thumb)
+            -else
+              %img{'data-src'=> "holder.js/100x100/sky/text:doc"}
+          %p=asset.attachment_file_name
+          %p= link_to '删除', asset, method: :delete, :class =>'btn btn-warning', confirm: '确定？'

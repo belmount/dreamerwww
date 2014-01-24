@@ -1,0 +1,64 @@
+-content_for :head do
+  =stylesheet_link_tag "/javascripts/plupload/js/jquery.ui.plupload/css/jquery.ui.plupload"
+
+
+.panel.panel-default
+  .panel-body
+    #uploader
+=javascript_include_tag '/javascripts/plupload/js/plupload.full.min'
+=javascript_include_tag '/javascripts/plupload/js/i18n/zh_CN'
+=javascript_include_tag '/javascripts/plupload/js/jquery.ui.plupload/jquery.ui.plupload.min'
+:javascript
+  $(function() {
+    // fix conflict with bootstrap js 
+    var btn = $.fn.button.noConflict();
+    $.fn.btn = btn;
+
+    // init widget
+    $("#uploader").plupload({
+        // General settings
+        runtimes : 'html5,flash,silverlight,html4',
+        url : '#{assets_path}',
+ 
+        // Maximum file size
+        max_file_size : '10mb',
+ 
+        chunk_size: '1mb',
+ 
+        // Resize images on clientside if we can
+        resize : {
+            width : 800,
+            height : 600,
+            quality : 90,
+            crop: true // crop to exact dimensions
+        },
+ 
+        // Specify what files to browse for
+        filters : [
+            {title : "Image files", extensions : "jpg,gif,png"},
+            {title : "doc files", extensions : "docx,doc"}
+        ],
+ 
+        // Rename files by clicking on their titles
+        rename: true,
+         
+        // Sort files
+        sortable: true,
+ 
+        // Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
+        dragdrop: true,
+ 
+        // Views to activate
+        views: {
+            list: false,
+            thumbs: true, // Show thumbs
+            active: 'thumbs'
+        },
+ 
+        // Flash settings
+        flash_swf_url : 'http://rawgithub.com/moxiecode/moxie/master/bin/flash/Moxie.cdn.swf',
+ 
+        // Silverlight settings
+        silverlight_xap_url : 'http://rawgithub.com/moxiecode/moxie/master/bin/silverlight/Moxie.cdn.xap'
+    });
+  });
