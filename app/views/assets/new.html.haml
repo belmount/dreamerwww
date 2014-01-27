@@ -10,10 +10,6 @@
 =javascript_include_tag '/javascripts/plupload/js/jquery.ui.plupload/jquery.ui.plupload.min'
 :javascript
   $(function() {
-    // fix conflict with bootstrap js 
-    var btn = $.fn.button.noConflict();
-    $.fn.btn = btn;
-
     // init widget
     $("#uploader").plupload({
         // General settings
