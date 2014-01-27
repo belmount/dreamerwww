@@ -12,8 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
-//= require jquery.ui.datepicker-zh-CN
 //= require bootstrap
+// underscore needed for gmaps 4 rails
+//= require underscore-min
 //= require gmaps/google
 //= require rapheal
+//= require jquery.ui.all
+//= require jquery.ui.datepicker-zh-CN
