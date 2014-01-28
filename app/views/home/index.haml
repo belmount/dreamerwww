@@ -5,37 +5,8 @@
     .col-sm-7
       %h3
         %strong 备案区域统计
+      #dataholder{'data-chart'=>"#{@chart}", 'data-title'=>"#{@statics_tarr}", 'data-value'=>"#{@statics_varr}"}
       #chart
-      :javascript
-        function labelBarChart(r, bc, labels, attrs) {
-          for (var i = 0; i<bc.bars.length; i++) {
-            var bar = bc.bars[i];
-            var gutter_y = bar.w * 0.5;
-            var label_x = bar.x - bar.w-10;
-            var label_y = bar.y ;//- gutter_y;
-            var label_text = labels[i];
-            var label_attr = { fill:  "#000", font: "9px sans-serif", "text-anchor":"end" };
-
-            r.text(label_x, label_y, label_text).attr(label_attr);
-          }
-
-        }
-        $(document).ready(function() {
-          var r = Raphael(document.getElementById("chart"),400, 480);
-          var fin = function () {
-                      this.flag = r.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
-                  },
-                  fout = function () {
-                      this.flag.animate({opacity: 0}, 300, function () {this.remove();});
-                  };
-
-          r.piechart(190, 350, 50, [#{@chart}], { legend: ["%%.%% - 中心城区", "%%.%% - 新城区"]});
-          var bc = r.hbarchart(140, 20, 250, 300,[#{@statics_varr}], { gutter: '5%'} ).attr({fill: "#248bca"}).hover(fin, fout);
-          labelBarChart(r, bc,
-               [#{@statics_tarr}],
-               { fill:  "#2f69bf", font: "16px sans-serif" }
-          );
-        });
         
 .panel.panel-default
   .panel-body
@@ -63,4 +34,7 @@
         = icon 'road'
         规范行业和市场行为
       %p 通过全新的交易方式和全程的信用跟踪和投诉处理，逐步建立经纪机构和经纪人的信用体系，达到汰劣留良，净化行业风气，保障交易双方的权益。
+
+-content_for :head do 
+  =javascript_include_tag 'home'
 

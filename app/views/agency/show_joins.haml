@@ -6,5 +6,8 @@
 
     = render 'map', title: "已备案加盟经纪机构(#{@agencies.count})"
 
-    -content_for :footer do
-      =render 'comm_map_js'
+#data_holder{'data-json'=>"#{raw @json.to_json}"}
+  
+-content_for :head do 
+  = render '/shared/gmap'
+  = javascript_include_tag 'agency'

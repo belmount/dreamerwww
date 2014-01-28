@@ -26,8 +26,8 @@ class HomeController < ApplicationController
     tarr = [] 
 
     @statics.each_with_index do |area, idx|
-      varr << area['value']['count']
-      tarr << "'#{area['_id']}'"
+      varr << area['value']['count'].to_i
+      tarr << "#{area['_id']}"
     end
     @statics_varr = varr * ','
     @statics_tarr = tarr * ','

@@ -27,6 +27,7 @@
 
     %hr
     =render 'map', title: '附近已备案经纪机构'
+    #data_holder{'data-json'=>"#{raw @json.to_json}", 'data-last_flag'=>'', 'data-init_js'=>"#{javascript_path('agency_show')}"}
           
 
     #brokers.row
@@ -51,46 +52,6 @@
           %td
             %strong.view_img{"data-html" => "true",'data-trigger'=> 'hover', "data-content"=>"<img src=\"#{Broker.img_url(broker.guid)}\">".html_safe} 
               查看照片
-- content_for :footer do
-  :javascript
-    $(document).ready(function(){
-      $('.view_img').popover();
-      var raw_markers    = #{raw @json.to_json};
-      var gmaps_markers;
-
-        function createSidebarLi(agency_json, last_flag) {
-          if(last_flag) {
-            return ("<li><a><span class='glyphicon glyphicon-flag'></span>" + agency_json.marker_title + "<\/a></li>");
-          } else {
-            return ("<li><a>" + agency_json.marker_title + "<\/a></li>");
-          }
-        };
-
-        function bindLiToMarker($li, marker){
-          $li.click(function(){
-            marker.panTo(); //to pan to the marker
-            google.maps.event.trigger(marker.getServiceObject(), "click"); // to open infowindow
-          });
-        };
-
-        function createSidebar(){
-          for (var i=0;i<raw_markers.length;i++){
-            var last_flag = i === (raw_markers.length -1);
-            var $li = $( createSidebarLi(raw_markers[i], last_flag) );
-            $li.appendTo($('#markers_list'));
-            bindLiToMarker($li, gmaps_markers[i]);
-          }
-        };
-
-        handler = Gmaps.build('Google');
-        handler.buildMap({ 
-            provider: {zoom: 3}, 
-            internal: {id: 'map'}}, 
-            function(){
-            gmaps_markers = handler.addMarkers(raw_markers);
-            handler.bounds.extendWith(gmaps_markers);
-            handler.fitMapToBounds();
-            createSidebar();
-        });
-    });
-
+-content_for :head do 
+  = render '/shared/gmap'
+  = javascript_include_tag 'agency'

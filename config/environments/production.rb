@@ -20,7 +20,7 @@ Estatee::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  config.assets.precompile += %w(rails_admin/rails_admin.css rails_admin/rails_admin.js)
+  config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif *.js]
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH

@@ -5,5 +5,8 @@
   .panel-body
     =render 'map', title: "#{@name}查询结果"
 
--content_for :footer do
-  =render 'comm_map_js'
+#data_holder{'data-json'=>"#{raw @json.to_json}"}
+  
+-content_for :head do 
+  = render '/shared/gmap'
+  = javascript_include_tag 'agency'

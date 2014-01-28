@@ -1,0 +1,2 @@
+$('.view_img').popover()
+

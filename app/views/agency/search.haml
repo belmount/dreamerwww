@@ -1,4 +1,3 @@
-=render '/shared/gmap'
 .panel.panel-default
   .panel-heading
     %h1 
@@ -49,55 +48,9 @@
       .col-sm-8 
         #map{style:'height: 400px;'}
 
--content_for :footer do
-  :javascript
-    $(document).ready(function(){
-      var raw_markers    = #{raw @hash.to_json};
-      var gmaps_markers;
 
-      function createSidebarLi(agency_json) {
-        return ("<li><a>" + agency_json.marker_title + "<\/a></li>");
-      };
-
-      function bindLiToMarker($li, marker){
-        $li.click(function(){
-          marker.panTo(); //to pan to the marker
-          google.maps.event.trigger(marker.getServiceObject(), "click"); // to open infowindow
-        });
-      };
-
-      function createSidebar(){
-        for (var i=0;i<raw_markers.length;i++){
-          var $li = $( createSidebarLi(raw_markers[i]) );
-          $li.appendTo($('#markers_list'));
-          bindLiToMarker($li, gmaps_markers[i]);
-        }
-      };
-
-      function enableDrag() {
-        if (#{not params[:from_lat].present?}) {
-          pos_marker = gmaps_markers[0].serviceObject;
-          google.maps.event.addListener(pos_marker, 'dragend', function() {
-            $('#from_lat').val(pos_marker.position.lat());
-            $('#from_lng').val(pos_marker.position.lng());
-          });
-        }
-      }
-
-      handler = Gmaps.build('Google');
-      handler.buildMap({ 
-          provider: {zoom: 12}, 
-          internal: {id: 'map'}}, 
-          function(){
-            if (#{params[:from_lat].present?}) {
-              gmaps_markers = handler.addMarkers(raw_markers);
-            } else {
-              gmaps_markers = handler.addMarkers(raw_markers, {draggable: true});
-            }
-          handler.bounds.extendWith(gmaps_markers);
-          gmaps_markers[0].panTo();
-          createSidebar();
-          enableDrag();
-      });
-    });
-      
+#data_holder{'data-json'=>"#{raw @hash.to_json}", 'data-dragpath'=>"#{javascript_path('drag_map')}", 'data-drag'=> "#{not params[:from_lat].present?}"}
+  
+-content_for :head do 
+  = render '/shared/gmap'
+  = javascript_include_tag 'agency'
