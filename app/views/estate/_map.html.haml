@@ -3,20 +3,4 @@
 .row
   .col-sm-10.col-sm-offset-1
     #map{style:'height: 400px;'}
-=render '/shared/gmap'
-:javascript
-  $(document).ready(function(){
-    var raw_markers    = #{raw @json.to_json};
-    var gmaps_markers;
-
-    handler = Gmaps.build('Google');
-    handler.buildMap(
-        {provider: {zoom: 15}, 
-        internal: {id: 'map'}}, 
-        function(){
-          gmaps_markers = handler.addMarkers(raw_markers);
-          handler.bounds.extendWith(gmaps_markers);
-          gmaps_markers[0].panTo();
-        }
-    );
-  });
+#data_holder{"data-json"=> "#{raw @json.to_json}"}

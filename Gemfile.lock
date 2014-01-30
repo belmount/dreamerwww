@@ -60,6 +60,8 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    eventmachine (1.0.3-java)
+    eventmachine (1.0.3-x86-mingw32)
     execjs (2.0.2)
     gmaps4rails (2.1.1)
     gyoku (1.1.1)
@@ -185,6 +187,9 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    turbo-sprockets-rails3 (0.3.11)
+      railties (> 3.2.8, < 4.0.0)
+      sprockets (>= 2.2.0)
     tzinfo (0.3.38)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
@@ -227,5 +232,6 @@ DEPENDENCIES
   stringex
   therubyrhino
   thin
+  turbo-sprockets-rails3
   uglifier (>= 1.0.3)
   yui-compressor

@@ -38,7 +38,7 @@ class EstateController < ApplicationController
     @json = to_markers [@estate]
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @law }
+      format.json { render json: @estate }
     end
     @agency = Agency.where(:id => @estate.intermediary)
   end
@@ -69,7 +69,7 @@ class EstateController < ApplicationController
       marker.lat estate.latitude
       marker.lng estate.longitude
       marker.title estate.address
-      marker.infowindow "#{estate.address}"
+      marker.infowindow "#{view_context.link_to  estate.address, estate_path(estate)}"
       if current and current === estate then
          marker.picture({
           :url => "http://maps.gstatic.cn/intl/zh-CN_cn/mapfiles/arrow.png",

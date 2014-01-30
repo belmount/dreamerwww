@@ -30,8 +30,19 @@ $(document).ready ->
   ###
   draggable = $('#data_holder').data('drag')
   if draggable
-    drag_script = $('#data_holder').data('dragpath') 
-    $.getScript(drag_script) #will override init_map function
+    enableDrag = (markers)->
+      pos_marker = markers[0].serviceObject
+      google.maps.event.addListener pos_marker, 'dragend', ->
+              $('#from_lat').val pos_marker.position.lat()
+              $('#from_lng').val pos_marker.position.lng()
+
+    init_map = ->
+      gmaps_markers = handler.addMarkers raw_markers, draggable: true
+      gmaps_markers[0].panTo()
+      createSidebar(gmaps_markers)
+      enableDrag(gmaps_markers)
+      handler.bounds.extendWith gmaps_markers
+
     zoom_level = 15
   else
     init_map = -> 

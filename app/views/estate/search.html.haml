@@ -24,8 +24,9 @@
       - if @estates and @estates.empty? then
         .alert.alert-info 搜索没有结果。请重新搜索
     %hr
-
     =render 'agency/map', title: '搜索结果'
-    
--content_for :footer do
-  =render 'agency/comm_map_js', :need_drag => true    
+    #data_holder{'data-json'=>"#{raw @json.to_json}", 'data-dragpath'=>"#{javascript_path('drag_map')}", 'data-drag'=> "#{not params[:from_lat].present?}"}
+  
+-content_for :head do 
+  = render '/shared/gmap'
+  = javascript_include_tag 'agency'
